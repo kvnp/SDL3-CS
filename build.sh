@@ -62,17 +62,16 @@ if [[ $RUNNER_OS == 'Linux' ]]; then
         libdrm-dev$TARGET_APT_ARCH \
         libgbm-dev$TARGET_APT_ARCH \
         libpulse-dev$TARGET_APT_ARCH
+elif [[ $RUNNER_OS == 'macOS' ]]; then
+    # Setup macOS dependencies
+    brew update
+    brew install ninja
 fi
 
 
 # Configure CMake
 cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
 echo cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
-
-echo "-----------------------------------"
-echo build/CMakeFiles/SDL3-shared.dir/DependInfo.cmake
-cat build/CMakeFiles/SDL3-shared.dir/DependInfo.cmake
-echo "-----------------------------------"
 
 
 # Build
