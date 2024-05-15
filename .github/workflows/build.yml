@@ -84,6 +84,9 @@ jobs:
       - name: Configure CMake
         run:  ${{ matrix.platform.cmake_configure_env }} cmake -B build ${{ matrix.platform.flags }} -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
 
+      - name: Print CMake DependInfo
+        run: cat build/CMakeFiles/SDL3-shared.dir/DependInfo.cmake
+
       - name: Build
         run: cmake --build build/ --config Release
 
