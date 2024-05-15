@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if environment variables are defined
-if [[ -z $NAME || -z $RUNNER_OS || -z $FLAGS ]]; then
+if [[ -z $NAME || -z $RUNNER_OS || -z $FLAGS || -z $BUILD_TYPE ]]; then
     echo "One or more required environment variables are not defined."
     exit 1
 fi
@@ -9,7 +9,7 @@ fi
 SUDO=$(which sudo)
 
 if [[ $RUNNER_OS == 'Linux' ]]; then
-# Setup Linux dependencies
+    # Setup Linux dependencies
     if [[ $TARGET_APT_ARCH == :i386 ]]; then
         $SUDO dpkg --add-architecture i386
     fi
@@ -64,18 +64,14 @@ if [[ $RUNNER_OS == 'Linux' ]]; then
         libpulse-dev$TARGET_APT_ARCH
 fi
 
+# Configure CMake
 cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
 
 # Build
 cmake --build build/ --config Release
 
-if [[ $RUNNER_OS == 'Windows' ]]; then
-    # Install (Windows)
-    cmake --install build/ --prefix install_output --config Release
-else
-    # Install
-    $SUDO cmake --install build/ --prefix install_output --config Release
-fi
+# Install
+$SUDO cmake --install build/ --prefix install_output --config Release
 
 mkdir -p SDL3-CS/native/$NAME
 
