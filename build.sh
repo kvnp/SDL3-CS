@@ -75,7 +75,7 @@ echo "-----------------------------------"
 
 
 # Build
-cmake --build build/ --config Release
+cmake --trace --build build/ --config Release
 
 # Install
 $SUDO cmake --install build/ --prefix install_output --config Release
