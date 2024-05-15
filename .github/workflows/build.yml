@@ -50,7 +50,6 @@ jobs:
 
       - name: Build
         if: ${{ !contains(matrix.platform.container, 'arm') }}
-        shell: bash
         env:
           NAME: ${{ matrix.platform.name }}
           TARGET_APT_ARCH: ${{ matrix.platform.target_apt_arch }}
