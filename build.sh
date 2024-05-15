@@ -64,8 +64,15 @@ if [[ $RUNNER_OS == 'Linux' ]]; then
         libpulse-dev$TARGET_APT_ARCH
 fi
 
+
 # Configure CMake
 cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
+
+echo "-----------------------------------"
+echo build/CMakeFiles/SDL3-shared.dir/DependInfo.cmake
+cat build/CMakeFiles/SDL3-shared.dir/DependInfo.cmake
+echo "-----------------------------------"
+
 
 # Build
 cmake --build build/ --config Release
