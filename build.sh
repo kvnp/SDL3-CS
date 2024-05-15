@@ -66,8 +66,8 @@ fi
 
 
 # Configure CMake
-cmake --trace -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
-echo cmake --trace -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
+cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
+echo cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
 
 echo "-----------------------------------"
 echo build/CMakeFiles/SDL3-shared.dir/DependInfo.cmake
@@ -76,7 +76,7 @@ echo "-----------------------------------"
 
 
 # Build
-cmake --trace --build build/ --config Release
+cmake --build build/ --config Release
 
 # Install
 $SUDO cmake --install build/ --prefix install_output --config Release
