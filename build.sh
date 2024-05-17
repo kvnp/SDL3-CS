@@ -68,20 +68,22 @@ elif [[ $RUNNER_OS == 'macOS' ]]; then
     brew install ninja
 fi
 
-
 # Configure CMake
-cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
-echo cmake -B build $FLAGS -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DSDL_SHARED_ENABLED_BY_DEFAULT=ON -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
-
+cmake -B build $FLAGS \
+      -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+      -DSDL_SHARED_ENABLED_BY_DEFAULT=ON \
+      -DSDL_STATIC_ENABLED_BY_DEFAULT=ON
 
 # Build
-cmake --build build/ --config Release
+cmake --build build/ \
+      --config Release
 
 # Install
-$SUDO cmake --install build/ --prefix install_output --config Release
+cmake --install build/ \
+      --prefix install_output \
+      --config Release
 
 mkdir -p SDL3-CS/native/$NAME
-
 if [[ $RUNNER_OS == 'Windows' ]]; then
     # Prepare release (Windows)
     cp install_output/bin/SDL3.dll SDL3-CS/native/$NAME/SDL3.dll
