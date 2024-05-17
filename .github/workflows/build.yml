@@ -29,12 +29,12 @@ jobs:
           path: 'SDL3-CS'
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
         if: contains(matrix.platform.container, 'arm')
+        uses: docker/setup-qemu-action@v3
 
       - name: Build (Linux ARM)
-        uses: addnab/docker-run-action@v3
         if: contains(matrix.platform.container, 'arm')
+        uses: addnab/docker-run-action@v3
         with:
           image: ${{ matrix.platform.container }}
           options: >
@@ -49,22 +49,22 @@ jobs:
             ./SDL3-CS/build.sh
 
       - name: Build
+        if: ${{ !contains(matrix.platform.container, 'arm') }}
         env:
           NAME: ${{ matrix.platform.name }}
           TARGET_APT_ARCH: ${{ matrix.platform.target_apt_arch }}
           RUNNER_OS: ${{ runner.os }}
           FLAGS: ${{ matrix.platform.flags }}
-        if: ${{ !contains(matrix.platform.container, 'arm') }}
         run: ./SDL3-CS/build.sh
       
       - name: Get Actions user id
+        if: runner.os == 'Linux'
         id: get_uid
-        if: ${{ runner.os }} == 'Linux'
         run: echo "uid=$(id -u $USER)" >> $GITHUB_OUTPUT
 
       - name: Correct Ownership in GITHUB_WORKSPACE directory
+        if: runner.os == 'Linux'
         uses: peter-murray/reset-workspace-ownership-action@v1
-        if: ${{ runner.os }} == 'Linux'
         with:
           user_id: ${{ steps.get_uid.outputs.uid }}
 
