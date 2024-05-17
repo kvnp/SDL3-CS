@@ -79,11 +79,7 @@ cmake --build build/ \
       --config Release
 
 # Install
-cmake --install build/ \
-      --prefix install_output \
-      --config Release
-
-cat CMakeFiles/SDL3-shared.dir/cmake_pch_"arm64".h.pch
+$SUDO cmake --install build/ --prefix install_output --config Release
 
 mkdir -p SDL3-CS/native/$NAME
 if [[ $RUNNER_OS == 'Windows' ]]; then
